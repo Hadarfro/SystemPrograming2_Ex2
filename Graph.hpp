@@ -26,7 +26,10 @@ namespace ariel{
             void DFS(unsigned int v, bool visited[]);
             int getV();
             vector<vector<int>> getAdjMat();
-            //bool hasCycleDFS(unsigned int node, vector<vector<int>>& graph, vector<State>& state);
+            Graph Add(Graph g1,Graph g2);
+            void mulByNumber(int num);
+            Graph mul(Graph g1,Graph g2);
+            
     };
 };
 #endif // GRAPH_HPP
