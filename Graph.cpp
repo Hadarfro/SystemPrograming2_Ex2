@@ -83,7 +83,7 @@ using namespace std;
             cout << "Graph with " << this->V << " vertices and " << count << " edges" << endl;
         }
 
-        Graph Graph::Add(Graph g1,Graph g2){
+        Graph operator+(Graph g1,Graph g2){
             if (g1.getV() != g2.getV()) {
                 throw std::runtime_error("Matrices do not have the same number of rows.");
             }
@@ -104,16 +104,16 @@ using namespace std;
             return g3;
         }
 
-        void Graph::mulByNumber(int num){
-            int v = this->getV();
+        void operator*=(Graph g,int num){
+            int v = g.getV();
             for(size_t i = 0; i < v; i++){
                 for(size_t j = 0; j < v; j++){
-                    this->getAdjMat()[i][j] *= num;
+                    g.getAdjMat()[i][j] *= num;
                 }
             }
         }
 
-        Graph Graph::mul(Graph g1,Graph g2){
+        Graph operator*(Graph g1,Graph g2){
             int v = g1.getV();
             vector<vector<int>> adj;
             for(size_t i = 0; i < v; i++){
@@ -124,6 +124,15 @@ using namespace std;
             Graph g3;
             g3.loadGraph(adj);
             return g3;
+        }
+        void operator<<(ostream os, Graph g){//check
+            size_t v = g.getV();
+            for(size_t i = 0; i < v; i++){
+                for(size_t j = 0; j < v; j++){
+                    os << g.getAdjMat()[i][j];
+                } 
+                os << endl;
+            }
         }
         
     };

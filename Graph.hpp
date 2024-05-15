@@ -26,9 +26,10 @@ namespace ariel{
             void DFS(unsigned int v, bool visited[]);
             int getV();
             vector<vector<int>> getAdjMat();
-            Graph Add(Graph g1,Graph g2);
-            void mulByNumber(int num);
-            Graph mul(Graph g1,Graph g2);
+            friend Graph operator+(Graph g1,Graph g2);
+            friend void operator*=(Graph g,int num);
+            friend Graph operator*(Graph g1,Graph g2);
+            friend void operator<<(ostream os, Graph g);
             
     };
 };
