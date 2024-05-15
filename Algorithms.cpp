@@ -21,7 +21,7 @@ using namespace ariel;
 namespace Algorithms {
     
     int isConnected(ariel::Graph g){//done
-        size_t n = g.getV();
+        size_t n = (size_t)g.getV();
         if(g.getV() == 0){
             cout << "the graph is connected" << endl;
             return true;
@@ -35,7 +35,7 @@ namespace Algorithms {
         visited[0] = true;
 
         while (!q.empty()) {
-            size_t u = q.front();
+            size_t u = (size_t)q.front();
             q.pop();
             
             // Visit all neighbors of u
@@ -59,7 +59,7 @@ namespace Algorithms {
     }
 
     int shortestPath(ariel::Graph g,size_t start,size_t end){//done
-        size_t n = g.getV();
+        size_t n = (size_t)g.getV();
         if(start == end){
             return 0;
         }

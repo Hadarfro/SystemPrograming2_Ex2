@@ -3,6 +3,7 @@
 #include "Graph.hpp"
 
 using namespace std;
+using namespace doctest;
 
 TEST_CASE("Test graph addition")
 {
