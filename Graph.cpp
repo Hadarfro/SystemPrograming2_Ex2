@@ -104,6 +104,67 @@ using namespace std;
             return g3;
         }
 
+        Graph operator-(Graph g1,Graph g2){
+            if (g1.getV() != g2.getV()) {
+                throw std::runtime_error("Matrices do not have the same number of rows.");
+            }
+            for (size_t i = 0; i < g1.getV(); ++i) {
+                if (g1.getAdjMat()[i].size() != g2.getAdjMat()[i].size()) {
+                    throw std::runtime_error("Matrices do not have the same number of columns.");
+                }
+            }
+            int v = g1.getV();
+            vector<vector<int>> adj(v);
+            for(size_t i = 0; i < v; i++){
+                for(size_t j = 0; j < v; j++){
+                    adj[i][j] = g1.getAdjMat()[i][j] - g2.getAdjMat()[i][j];
+                }
+            }
+            Graph g3;
+            g3.loadGraph(adj);
+            return g3;
+        }
+
+        void operator++(Graph& g){
+            int v = g.getV();
+            vector<vector<int>> adj(v);
+            for(size_t i = 0; i < v; i++){
+                for(size_t j = 0; j < v; j++){
+                    g.getAdjMat()[i][j]++;
+                }
+            }
+        }
+
+        void operator--(Graph& g){
+            int v = g.getV();
+            vector<vector<int>> adj(v);
+            for(size_t i = 0; i < v; i++){
+                for(size_t j = 0; j < v; j++){
+                    g.getAdjMat()[i][j]--;
+                }
+            }
+        }
+
+        void operator+(Graph& g){
+            int v = g.getV();
+            vector<vector<int>> adj(v);
+            for(size_t i = 0; i < v; i++){
+                for(size_t j = 0; j < v; j++){
+                    g.getAdjMat()[i][j] *= 1;
+                }
+            }
+        }
+
+        void operator-(Graph& g){
+            int v = g.getV();
+            vector<vector<int>> adj(v);
+            for(size_t i = 0; i < v; i++){
+                for(size_t j = 0; j < v; j++){
+                    g.getAdjMat()[i][j] *= -1;
+                }
+            }
+        }
+
         void operator*=(Graph g,int num){
             int v = g.getV();
             for(size_t i = 0; i < v; i++){
@@ -125,14 +186,76 @@ using namespace std;
             g3.loadGraph(adj);
             return g3;
         }
-        void operator<<(ostream os, Graph g){//check
+
+        ostream& operator<<(std::ostream& os, Graph& g) {
+            for (const auto& row : g.getAdjMat()) {
+                os << "[";
+                for (const auto& elem : row) {
+                    os << elem << " ";
+                }
+                os << "]\n";
+            }
+            return os;
+        }
+
+        void operator/=(Graph& g, int num){
+            if (num == 0) {
+                throw std::invalid_argument("Division by zero.");
+            }
             size_t v = g.getV();
             for(size_t i = 0; i < v; i++){
                 for(size_t j = 0; j < v; j++){
-                    os << g.getAdjMat()[i][j];
+                    g.getAdjMat()[i][j] /= num;
                 } 
-                os << endl;
             }
+        }
+
+        bool operator==(Graph& g1,Graph& g2){
+            if(g1.getV()==g2.getV()){
+                for(size_t i = 0; i<g1.getV();i++){
+                   for(size_t j = 0; j < g1.getV();j++){
+                        if(g1.getAdjMat()[i][j] != g2.getAdjMat()[i][j]){
+                            return false;
+                        }
+                    } 
+                }
+            }
+            else{
+                return false;
+            }
+            return true;
+        }
+
+        bool operator!=(Graph g1,Graph g2){
+            if(g1.getV()==g2.getV()){
+                for(size_t i = 0; i<g1.getV();i++){
+                   for(size_t j = 0; j < g1.getV();j++){
+                        if(g1.getAdjMat()[i][j] != g2.getAdjMat()[i][j]){
+                            return true;
+                        }
+                    } 
+                }
+            }
+            else{
+                return true;
+            }
+            return false;
+        }
+
+        bool operator<=(Graph g1,Graph g2){
+            return true;
+        }
+
+        bool operator>=(Graph g1,Graph g2){
+            return true;
+        }
+
+        bool operator<(Graph g1,Graph g2){
+            return true;
+        }
+
+        bool operator>(Graph g1,Graph g2){
+            return true;
         }
         
     };

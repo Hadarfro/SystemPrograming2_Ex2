@@ -27,9 +27,21 @@ namespace ariel{
             int getV();
             vector<vector<int>> getAdjMat();
             friend Graph operator+(Graph g1,Graph g2);
+            friend void operator++(Graph& g);
+            friend Graph operator-(Graph g1,Graph g2);
+            friend void operator--(Graph& g);
+            friend void operator+(Graph& g);
+            friend void operator-(Graph& g);
             friend void operator*=(Graph g,int num);
             friend Graph operator*(Graph g1,Graph g2);
-            friend void operator<<(ostream os, Graph g);
+            friend ostream& operator<<(std::ostream& os, Graph& g);
+            friend void operator/=(Graph& g,int num);
+            friend bool operator==(Graph& g1,Graph& g2);
+            friend bool operator!=(Graph g1,Graph g2);
+            friend bool operator>(Graph g1,Graph g2);
+            friend bool operator>=(Graph g1,Graph g2);
+            friend bool operator<=(Graph g1,Graph g2);
+            friend bool operator<(Graph g1,Graph g2);
             
     };
 };
