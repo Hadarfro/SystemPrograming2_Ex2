@@ -234,6 +234,7 @@ using namespace std;
             }
             return ans;
         }
+        //edit
 
         void operator/=(Graph& g, int num){//fix!!!!!!!!!!!!!
             if (num == 0) {
