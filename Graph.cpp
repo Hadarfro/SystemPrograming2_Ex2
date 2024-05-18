@@ -17,6 +17,12 @@ using namespace std;
             this->V = 0;
 
         }
+
+        Graph::Graph(const std::vector<std::vector<int>>& adjMatrix)
+    : V(adjMatrix.size()), adjMat(adjMatrix) {
+
+    }
+
         // Destructor to deallocate memory
         Graph::~Graph() {
             this->adjMat.clear();
@@ -59,6 +65,10 @@ using namespace std;
 
         const vector<vector<int>>& Graph::getAdjMat() const {
             return adjMat;  // Const reference for read-only access
+        }
+
+        vector<vector<int>>& Graph::getAdjMat(){
+            return adjMat;  // Non-const reference for modification
         }
 
         void Graph::loadGraph(vector<vector<int>> g) {
@@ -186,42 +196,59 @@ using namespace std;
                     adjMat[i][j] *= num;
                 }
             }
+            g.getAdjMat() = adjMat;
         }
+
 
         Graph operator*(Graph g1,Graph g2){
-            int v = g1.getV();
-            vector<vector<int>> adj;
-            for(size_t i = 0; i < v; i++){
-                for(size_t j = 0; j < v; j++){
-                    adj[i][j] = g1.getAdjMat()[i][j] * g2.getAdjMat()[i][j];
+            if (g1.getV() != g2.getV()) {
+                throw std::runtime_error("Matrices do not have the same number of rows.");
+            }
+            for (size_t i = 0; i < g1.getV(); ++i) {
+                if (g1.getAdjMat()[i].size() != g2.getAdjMat()[i].size()) {
+                    throw std::runtime_error("Matrices do not have the same number of columns.");
                 }
             }
-            Graph g3;
-            g3.loadGraph(adj);
-            return g3;
+            size_t v = static_cast<size_t>(g1.getV());
+            vector<vector<int>> result(v,vector<int>(v, 0));  // Initialize result matrix
+
+            for (size_t i = 0; i < v; ++i){
+                for (size_t j = 0; j < v; ++j){
+                    for (size_t k = 0; k < v; ++k){
+                        result[i][j] += g1.getAdjMat()[i][k] * g2.getAdjMat()[k][j];
+                    }
+                }
+            }
+            return Graph(result);
         }
 
-        ostream& operator<<(std::ostream& os, Graph& g) {
+        string operator<<(std::ostream& os, Graph& g) {
+            string ans;
             for (const auto& row : g.getAdjMat()) {
-                os << "[";
+                ans += "[";
                 for (const auto& elem : row) {
-                    os << elem << " ";
+                    ans += elem;
+                    ans += " ";
                 }
-                os << "]\n";
+                ans += "]\n";
             }
-            return os;
+            return ans;
         }
 
-        void operator/=(Graph& g, int num){
+        void operator/=(Graph& g, int num){//fix!!!!!!!!!!!!!
             if (num == 0) {
                 throw std::invalid_argument("Division by zero.");
             }
             size_t v = (size_t)g.getV();
-            for(size_t i = 0; i < v; i++){
-                for(size_t j = 0; j < v; j++){
-                    g.getAdjMat()[i][j] /= num;
-                } 
+            // Get a reference to the adjacency matrix
+            vector<vector<int>>& adjMat = g.getAdjMat();
+
+            for (size_t i = 0; i < v; ++i) {
+                for (size_t j = 0; j < v; ++j) {
+                    adjMat[i][j] /= num;
+                }
             }
+            g.getAdjMat() = adjMat;
         }
 
         bool operator==(Graph& g1,Graph& g2){
