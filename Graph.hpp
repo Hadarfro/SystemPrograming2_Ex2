@@ -25,15 +25,19 @@ namespace ariel{
             void printGraph();
             void DFS(unsigned int v, bool visited[]);
             int getV();
+<<<<<<< HEAD
             vector<vector<int>>& getAdjMat();
             const vector<vector<int>>& getAdjMat() const;
+=======
+            vector<vector<int>> getAdjMat();
+>>>>>>> a373b6624616eec39ce674daab027c6928e96dde
             friend Graph operator+(Graph g1,Graph g2);
             friend void operator++(Graph& g);
             friend Graph operator-(Graph g1,Graph g2);
             friend void operator--(Graph& g);
             friend void operator+(Graph& g);
             friend void operator-(Graph& g);
-            friend void operator*=(Graph& g,int num);
+            friend void operator*=(Graph g,int num);
             friend Graph operator*(Graph g1,Graph g2);
             friend string operator<<(std::ostream& os, Graph& g);
             friend void operator/=(Graph& g,int num);
