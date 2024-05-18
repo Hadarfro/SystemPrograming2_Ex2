@@ -11,13 +11,8 @@ SOURCES = Graph.cpp Algorithms.cpp TestCounter.cpp Test.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 run: demo test
-<<<<<<< HEAD
 	./demo
 	./test 
-=======
-	./demo 
-	./test
->>>>>>> a373b6624616eec39ce674daab027c6928e96dde
 
 
 
