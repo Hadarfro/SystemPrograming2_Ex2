@@ -22,7 +22,7 @@ namespace ariel{
             ~Graph();
             int printPath(vector<int>& parent, unsigned int u);
             void loadGraph(vector<vector<int>> g);
-            void printGraph();
+            string printGraph();
             void DFS(unsigned int v, bool visited[]);
            // int getV();
             int getV() const;

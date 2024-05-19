@@ -87,17 +87,20 @@ using namespace std;
             this->adjMat = g;
         }
 
-        void Graph::printGraph(){//print the number of vertex and edges
+        string Graph::printGraph(){//print the number of vertex and edges
             // Print the neighbor matrix
-            int count = 0;
-            for (unsigned int i = 0; i < this->V; ++i) {
-                for (unsigned int j = 0; j < this->V; ++j) {
-                    if(this->adjMat[i][j] != 0){
-                        count++;
+            string ans = "";
+            for (size_t i = 0;i < V; i++) {
+                ans += "[";
+                for (size_t j = 0;j < V;j++) {
+                    ans += to_string(adjMat[i][j]) ;
+                    if (j < adjMat.size() - 1){
+                        ans = ans + ", ";
                     }
                 }
+                ans += "]";
             }
-            cout << "Graph with " << this->V << " vertices and " << count << " edges" << endl;
+            return ans;
         }
 
         Graph operator+(Graph g1,Graph g2){
@@ -289,15 +292,40 @@ using namespace std;
         }
 
         bool operator<=(Graph g1,Graph g2){
+             size_t v = (size_t)max(g1.getV(),g2.getV());
+            if(g1.getAdjMat() == g2.getAdjMat()){
+                return true;
+            }
+            for (size_t i = 0; i < v; ++i) {
+                for (size_t j = 0; j < v; ++j) {
+                    if(g1.adjMat[i][j]!=0 && g2.adjMat[i][j]==0){
+                        return false;
+                    }
+                }
+            }
             return true;
         }
 
         bool operator>=(Graph g1,Graph g2){
+            size_t v = (size_t)max(g1.getV(),g2.getV());
+            if(g1.getAdjMat() == g2.getAdjMat()){
+                return true;
+            }
+            for (size_t i = 0; i < v; ++i) {
+                for (size_t j = 0; j < v; ++j) {
+                    if(g1.adjMat[i][j]==0 && g2.adjMat[i][j]!=0){
+                        return false;
+                    }
+                }
+            }
             return true;
         }
 
         bool operator<(const Graph& g1,const Graph& g2){
             size_t v = (size_t)max(g1.getV(),g2.getV());
+            if(v == g1.getV()){
+                return false;
+            }
             for (size_t i = 0; i < v; ++i) {
                 for (size_t j = 0; j < v; ++j) {
                     if(g1.adjMat[i][j]!=0 && g2.adjMat[i][j]==0){
@@ -309,6 +337,17 @@ using namespace std;
         }
 
         bool operator>(Graph g1,Graph g2){
+            size_t v = (size_t)max(g1.getV(),g2.getV());
+            if(v == g2.getV()){
+                return false;
+            }
+            for (size_t i = 0; i < v; ++i) {
+                for (size_t j = 0; j < v; ++j) {
+                    if(g1.adjMat[i][j]==0 && g2.adjMat[i][j]!=0){
+                        return false;
+                    }
+                }
+            }
             return true;
         }
         
