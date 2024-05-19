@@ -33,6 +33,8 @@ namespace ariel{
             friend Graph operator-(Graph g1,Graph g2);
             friend void operator--(Graph& g);
             friend void operator+(Graph& g);
+            friend void operator+=(Graph& g,int num);
+            friend void operator-=(Graph& g,int num);
             friend void operator-(Graph& g);
             friend void operator*=(Graph& g,int num);
             friend Graph operator*(Graph& g1,Graph& g2);

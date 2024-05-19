@@ -132,9 +132,7 @@ using namespace std;
             }
 
             // Create the resulting graph and load the computed adjacency matrix
-            Graph g3;
-            g3.loadGraph(adj);
-            return g3;
+            return Graph(adj);
         }
 
         Graph operator-(Graph g1,Graph g2){
@@ -153,14 +151,11 @@ using namespace std;
                     adj[i][j] = g1.getAdjMat()[i][j] - g2.getAdjMat()[i][j];
                 }
             }
-            Graph g3;
-            g3.loadGraph(adj);
-            return g3;
+            return Graph(adj);
         }
 
         void operator++(Graph& g){
             size_t v = (size_t)g.getV();
-            vector<vector<int>> adj(v);
             for(size_t i = 0; i < v; i++){
                 for(size_t j = 0; j < v; j++){
                     g.getAdjMat()[i][j]++;
@@ -170,7 +165,6 @@ using namespace std;
 
         void operator--(Graph& g){
             size_t v = (size_t)g.getV();
-            vector<vector<int>> adj(v);
             for(size_t i = 0; i < v; i++){
                 for(size_t j = 0; j < v; j++){
                     g.getAdjMat()[i][j]--;
@@ -180,10 +174,29 @@ using namespace std;
 
         void operator+(Graph& g){
             size_t v = (size_t)g.getV();
-            vector<vector<int>> adj(v);
             for(size_t i = 0; i < v; i++){
                 for(size_t j = 0; j < v; j++){
                     g.getAdjMat()[i][j] *= 1;
+                }
+            }
+        }
+
+        void operator+=(Graph& g,int num){
+            size_t v = (size_t)g.getV();
+            auto& adjMat = g.getAdjMat();  // Get a reference to the adjacency matrix
+            for(size_t i = 0; i < v; i++){
+                for(size_t j = 0; j < v; j++){
+                    adjMat[i][j] +=num;
+                }
+            }
+        }
+
+        void operator-=(Graph& g,int num){
+            size_t v = (size_t)g.getV();
+            auto& adjMat = g.getAdjMat();  // Get a reference to the adjacency matrix
+            for(size_t i = 0; i < v; i++){
+                for(size_t j = 0; j < v; j++){
+                    adjMat[i][j] -= num;
                 }
             }
         }

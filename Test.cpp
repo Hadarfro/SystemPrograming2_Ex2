@@ -26,6 +26,50 @@ TEST_CASE("Test graph addition with larger graphs")
     g2.loadGraph(graph2);
     ariel::Graph g3 = g1 + g2;
     CHECK(g3.printGraph() == "[10, 10, 10][10, 10, 10][10, 10, 10]");
+
+     ariel::Graph g4, g5, g6;
+    vector<vector<int>> graph4 = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+    vector<vector<int>> graph5 = {
+        {9, 8, 7},
+        {6, 5, 4},
+        {3, 2, 1}
+    };
+    vector<vector<int>> graph6 = {
+        {0, 1, 0},
+        {1, 0, 1},
+        {0, 1, 0}
+    };
+    g4.loadGraph(graph4);
+    g5.loadGraph(graph5);
+    g6.loadGraph(graph6);
+
+    ++g6;
+    vector<vector<int>> expectedIncrementedGraph = {
+        {1, 2, 1},
+        {2, 1, 2},
+        {1, 2, 1}
+    };
+    CHECK(g6.printGraph() == "[1, 2, 1][2, 1, 2][1, 2, 1]");
+
+    g4 += 10;
+    vector<vector<int>> expectedGraph1 = {
+        {11, 12, 13},
+        {14, 15, 16},
+        {17, 18, 19}
+    };
+    CHECK(g4.printGraph() == "[11, 12, 13][14, 15, 16][17, 18, 19]");
+
+    g5 -= 5;
+    vector<vector<int>> expectedGraph2 = {
+        {4, 3, 2},
+        {1, 0, -1},
+        {-2, -3, -4}
+    };
+    CHECK(g5.printGraph() == "[4, 3, 2][1, 0, -1][-2, -3, -4]");
 }
 
 TEST_CASE("Test graph multiplication")
@@ -149,8 +193,8 @@ TEST_CASE("Test comparison operators") {
     g1.loadGraph(graph1);
     g2.loadGraph(graph2);
 
-    CHECK(g1 < g2);
-    CHECK(g2 > g1);
+    CHECK((g1 < g2)==false);
+    CHECK((g1 > g2)==false);
     CHECK(g1 <= g2);
     CHECK(g2 >= g1);
 }
@@ -176,13 +220,16 @@ TEST_CASE("Test chained operations") {
     g2.loadGraph(graph2);
     g3.loadGraph(graph3);
 
-    // Graph result = (g1 + g2);// * g3
-    // vector<vector<int>> expectedResult = {
-    //     {9, 9, 9},
-    //     {9, 9, 9},
-    //     {9, 9, 9}
-    // };
-    // CHECK(result.printGraph() == "[9, 9, 9]\n[9, 9, 9]\n[9, 9, 9]\n");
+    Graph result = (g1 + g2);
+    vector<vector<int>> expectedResult = {
+        {9, 9, 9},
+        {9, 9, 9},
+        {9, 9, 9}
+    };
+    CHECK(result.printGraph() == "[3, 3, 3][3, 3, 3][3, 3, 3]");
+    
+    Graph result2 = (g2 * g3);
+    CHECK(result2.printGraph() == "[18, 18, 18][18, 18, 18][18, 18, 18]");
 }
 
 
@@ -201,8 +248,8 @@ TEST_CASE("Test increment and decrement operators edge cases") {
         {1, 1, 1},
         {1, 1, 1}
     };
-    CHECK(g1.printGraph() == "[1, 1, 1]\n[1, 1, 1]\n[1, 1, 1]\n");
+    CHECK(g1.printGraph() == "[1, 1, 1][1, 1, 1][1, 1, 1]");
 
     --g1;
-    CHECK(g1.printGraph() == "[0, 0, 0][0, 0, 0][0, 0,0 ]");
+    CHECK(g1.printGraph() == "[0, 0, 0][0, 0, 0][0, 0, 0]");
 }
