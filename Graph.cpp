@@ -7,6 +7,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <algorithm> // For std::min and std::max
 #include <unordered_set>
 #include "Graph.hpp"
 
@@ -60,8 +61,10 @@ using namespace std;
         }
 
         int Graph::getV(){
-            return this->V;
+            return V;
         }
+
+        //size_t Graph::getV() const; // Method to get the number of vertices
 
         const vector<vector<int>>& Graph::getAdjMat() const {
             return adjMat;  // Const reference for read-only access

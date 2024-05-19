@@ -25,6 +25,7 @@ namespace ariel{
             void printGraph();
             void DFS(unsigned int v, bool visited[]);
             int getV();
+            //size_t getV() const;
             //vector<vector<int>>& getAdjMat();
             const vector<vector<int>>& getAdjMat() const;
             vector<vector<int>>& getAdjMat();
