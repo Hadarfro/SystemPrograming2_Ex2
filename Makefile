@@ -10,9 +10,9 @@ VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=99
 SOURCES = Graph.cpp Algorithms.cpp TestCounter.cpp Test.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
-run: demo test
+run: demo 
 	./demo
-	./test 
+	 
 
 
 

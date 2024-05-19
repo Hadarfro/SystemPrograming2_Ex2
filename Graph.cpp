@@ -60,11 +60,15 @@ using namespace std;
             return 1;
         }
 
-        int Graph::getV(){
+        // Get the number of vertices (non-const version)
+        // int Graph::getV() {
+        //     return V;
+        // }
+
+        // Get the number of vertices (const version)
+        int Graph::getV() const {
             return V;
         }
-
-        //size_t Graph::getV() const; // Method to get the number of vertices
 
         const vector<vector<int>>& Graph::getAdjMat() const {
             return adjMat;  // Const reference for read-only access
@@ -199,11 +203,10 @@ using namespace std;
                     adjMat[i][j] *= num;
                 }
             }
-            g.getAdjMat() = adjMat;
         }
 
 
-        Graph operator*(Graph g1,Graph g2){
+        Graph operator*(Graph& g1,Graph& g2){
             if (g1.getV() != g2.getV()) {
                 throw std::runtime_error("Matrices do not have the same number of rows.");
             }
@@ -228,12 +231,11 @@ using namespace std;
         string operator<<(std::ostream& os, Graph& g) {
             string ans;
             for (const auto& row : g.getAdjMat()) {
-                ans += "[";
+                cout << "[";
                 for (const auto& elem : row) {
-                    ans += elem;
-                    ans += " ";
+                    cout << elem << " ";
                 }
-                ans += "]\n";
+                cout << "]\n";
             }
             return ans;
         }
@@ -298,7 +300,7 @@ using namespace std;
             size_t v = (size_t)max(g1.getV(),g2.getV());
             for (size_t i = 0; i < v; ++i) {
                 for (size_t j = 0; j < v; ++j) {
-                    if(g1.adjMat()[i][j]==0 && g2.adjMat()[i][j]!=0){
+                    if(g1.adjMat[i][j]!=0 && g2.adjMat[i][j]==0){
                         return false;
                     }
                 }
