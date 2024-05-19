@@ -1,6 +1,7 @@
 /*
- * Demo program for Exercise 3.
- * Author: Benjamin Saldman.
+ * Author: Hadar Froimowich.
+ * ID: 213118458
+ * Email: hadarfro12@gmail.com
  */
 
 #include "Graph.hpp"
