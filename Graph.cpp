@@ -19,10 +19,21 @@ using namespace std;
 
         }
 
-        Graph::Graph(const std::vector<std::vector<int>>& adjMatrix)
-    : V(adjMatrix.size()), adjMat(adjMatrix) {
+        // Copy constructor
+        Graph::Graph(const Graph& copy) : V(copy.V), adjMat(copy.adjMat) {
+            adjMat.resize(copy.adjMat.size());
+            for (size_t i = 0; i < copy.adjMat.size(); ++i) {
+                adjMat[i].resize(copy.adjMat[i].size());
+                for (size_t j = 0; j < copy.adjMat[i].size(); ++j) {
+                    adjMat[i][j] = copy.adjMat[i][j]; //deep copy
+                }
+            }
+        }
 
-    }
+        Graph::Graph(const vector<vector<int>>& adjMatrix)
+        : V(adjMatrix.size()), adjMat(adjMatrix) {
+
+        }
 
         // Destructor to deallocate memory
         Graph::~Graph() {
@@ -59,11 +70,6 @@ using namespace std;
             cout << std::endl;
             return 1;
         }
-
-        // Get the number of vertices (non-const version)
-        // int Graph::getV() {
-        //     return V;
-        // }
 
         // Get the number of vertices (const version)
         int Graph::getV() const {
@@ -106,7 +112,7 @@ using namespace std;
         Graph operator+(Graph g1,Graph g2){
             // Check if the number of rows (vertices) is the same
             if (g1.getV() != g2.getV()) {
-                throw std::runtime_error("Matrices do not have the same number of rows.");
+                throw runtime_error("Matrices do not have the same number of rows.");
             }
 
             // Get adjacency matrices for both graphs
@@ -137,7 +143,7 @@ using namespace std;
 
         Graph operator-(Graph g1,Graph g2){
             if (g1.getV() != g2.getV()) {
-                throw std::runtime_error("Matrices do not have the same number of rows.");
+                throw runtime_error("Matrices do not have the same number of rows.");
             }
             for (size_t i = 0; i < g1.getV(); ++i) {
                 if (g1.getAdjMat()[i].size() != g2.getAdjMat()[i].size()) {
@@ -179,6 +185,30 @@ using namespace std;
                     g.getAdjMat()[i][j] *= 1;
                 }
             }
+        }
+        
+        const Graph operator++(Graph &g, int) { 
+            Graph copy(g);
+            int n = copy.getV();
+
+            for(size_t i=0; i<n; i++){
+                for(size_t j=0; j<n; j++){
+                    copy.getAdjMat()[i][j]++;
+                }
+            }
+            return copy;
+        }
+
+        const Graph operator--(Graph &g, int) { 
+            Graph copy(g);
+            int n = copy.getV();
+
+            for(size_t i=0; i<n; i++){
+                for(size_t j=0; j<n; j++){
+                    copy.getAdjMat()[i][j]--;
+                }
+            }
+            return copy;
         }
 
         void operator+=(Graph& g,int num){

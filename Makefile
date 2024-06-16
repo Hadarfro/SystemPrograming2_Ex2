@@ -11,11 +11,6 @@ SOURCES = Graph.cpp Algorithms.cpp TestCounter.cpp Test.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 run: demo test
-	./demo
-	./test
-	 
-
-
 
 demo: Demo.o $(filter-out TestCounter.o Test.o, $(OBJECTS))
 	$(CXX) $(CXXFLAGS) -v $^ -o $@

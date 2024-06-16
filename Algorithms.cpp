@@ -20,7 +20,7 @@ using namespace ariel;
 
 namespace Algorithms {
     
-    int isConnected(ariel::Graph g){//done
+    int isConnected(ariel::Graph g){
         size_t n = (size_t)g.getV();
         if(g.getV() == 0){
             cout << "the graph is connected" << endl;
@@ -58,7 +58,7 @@ namespace Algorithms {
         return true; // Graph is connected
     }
 
-    int shortestPath(ariel::Graph g,size_t start,size_t end){//done
+    int shortestPath(ariel::Graph g,size_t start,size_t end){
         size_t n = (size_t)g.getV();
         if(start == end){
             return 0;
@@ -152,7 +152,7 @@ namespace Algorithms {
         return false;
     }
 
-    int isContainsCycle(ariel::Graph g){//not working need to fix!!!!!!!!!
+    int isContainsCycle(ariel::Graph g){
         vector<int>::size_type n = (vector<int>::size_type)g.getV();
         vector<bool> visited(n, false);
         vector<int> cycleVertices;
@@ -166,7 +166,7 @@ namespace Algorithms {
         return false;
     }
 
-    int isBipartite(ariel::Graph g){//done
+    int isBipartite(ariel::Graph g){
         vector<int>::size_type n = (vector<int>::size_type)g.getV();
         vector<int> colors(n, -1); // Initialize all vertices with no color
         vector<unordered_set<int>> groups(2); // Two groups of vertices

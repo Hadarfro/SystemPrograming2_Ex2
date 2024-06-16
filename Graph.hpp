@@ -19,6 +19,7 @@ namespace ariel{
         public:
             Graph();
             Graph(const std::vector<std::vector<int>>& adjMatrix);
+            Graph(const Graph& copy);
             ~Graph();
             int printPath(vector<int>& parent, unsigned int u);
             void loadGraph(vector<vector<int>> g);
@@ -33,9 +34,11 @@ namespace ariel{
             friend Graph operator-(Graph g1,Graph g2);
             friend void operator--(Graph& g);
             friend void operator+(Graph& g);
+            friend void operator-(Graph& g);
             friend void operator+=(Graph& g,int num);
             friend void operator-=(Graph& g,int num);
-            friend void operator-(Graph& g);
+            friend const Graph operator++(Graph &g, int);
+            friend const Graph operator--(Graph &g, int);
             friend void operator*=(Graph& g,int num);
             friend Graph operator*(Graph& g1,Graph& g2);
             friend string operator<<(std::ostream& os, Graph& g);
